@@ -11,6 +11,9 @@ app.use((0, cors_1.default)());
 app.get('/', (req, res) => {
     res.send(`<h1>It's work</h1>`);
 });
+app.get('/test', (req, res) => {
+    res.send(`<h1>It's work!!!!/h1>`);
+});
 app.listen(PORT, () => {
     console.log(`server started on ${PORT}`);
 });
