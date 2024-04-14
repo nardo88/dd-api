@@ -29,7 +29,12 @@
       "experimentalDecorators": true
     }
   },
-  "plugins": ["@typescript-eslint", "prettier", "eslint-plugin-unused-imports"],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "eslint-plugin-unused-imports",
+    "babel-plugin-module-resolver"
+  ],
   "rules": {
     "global-require": 0,
     "max-len": [
