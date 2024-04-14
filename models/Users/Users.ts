@@ -4,10 +4,31 @@ import { UsersType } from './Users.type'
 const UsersSchema = new Schema(
   {
     _id: Schema.Types.String,
+    email: {
+      type: Schema.Types.String,
+      require: true,
+      unique: true,
+    },
+    profile: {
+      name: Schema.Types.String,
+      surname: Schema.Types.String,
+      middlename: Schema.Types.String,
+    },
+    password: {
+      type: Schema.Types.String,
+      require: true,
+    },
+    roles: [
+      {
+        type: Schema.Types.String,
+        enum: ['user', 'admin'],
+        default: 'user',
+      },
+    ],
   },
   {
     timestamps: true,
-    collection: 'clients',
+    collection: 'users',
     versionKey: false,
   }
 )

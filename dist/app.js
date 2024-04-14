@@ -12,9 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("module-alias/register");
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
+const routes_1 = __importDefault(require("./routes"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const PORT = 5000;
@@ -22,11 +24,10 @@ const mongoUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/conspects
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-app.get('/', (_req, res) => {
-    res.send(`<h1>It's work</h1>`);
-});
-app.get('/test', (req, res) => {
-    res.send(`<h1>It's work!!!!/h1>`);
+const routers = (0, routes_1.default)();
+app.use('/', routers.authRouter);
+app.use((_req, res) => {
+    res.status(404).json({ message: 'Not found' });
 });
 function start() {
     return __awaiter(this, void 0, void 0, function* () {

@@ -1,8 +1,10 @@
+import 'module-alias/register'
 import express, { Request, Response } from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
-import dotenv from 'dotenv'
+import createRoutes from './routes'
 
+import dotenv from 'dotenv'
 dotenv.config()
 
 const PORT = 5000
@@ -14,11 +16,12 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send(`<h1>It's work</h1>`)
-})
-app.get('/test', (req: Request, res: Response) => {
-  res.send(`<h1>It's work!!!!/h1>`)
+const routers = createRoutes()
+
+app.use('/', routers.authRouter)
+
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({ message: 'Not found' })
 })
 
 async function start() {

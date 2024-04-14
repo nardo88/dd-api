@@ -26,9 +26,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const UsersSchema = new mongoose_1.Schema({
     _id: mongoose_1.Schema.Types.String,
+    email: {
+        type: mongoose_1.Schema.Types.String,
+        require: true,
+        unique: true,
+    },
+    profile: {
+        name: mongoose_1.Schema.Types.String,
+        surname: mongoose_1.Schema.Types.String,
+        middlename: mongoose_1.Schema.Types.String,
+    },
+    password: {
+        type: mongoose_1.Schema.Types.String,
+        require: true,
+    },
+    roles: [
+        {
+            type: mongoose_1.Schema.Types.String,
+            enum: ['user', 'admin'],
+            default: 'user',
+        },
+    ],
 }, {
     timestamps: true,
-    collection: 'clients',
+    collection: 'users',
     versionKey: false,
 });
 exports.default = mongoose_1.default.model('Users', UsersSchema);
