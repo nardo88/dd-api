@@ -36,7 +36,7 @@ export async function auth(options: IOptions): Promise<IOutput> {
       }
     }
 
-    const jwt = createJWT({ userId: '123' })
+    const jwt = createJWT({ userId: user._id })
 
     return {
       status: 200,

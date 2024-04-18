@@ -18,13 +18,11 @@ const UsersSchema = new Schema(
       type: Schema.Types.String,
       require: true,
     },
-    roles: [
-      {
-        type: Schema.Types.String,
-        enum: ['user', 'admin'],
-        default: 'user',
-      },
-    ],
+    roles: {
+      type: [Schema.Types.String],
+      enum: ['user', 'admin'],
+      default: ['user'],
+    },
   },
   {
     timestamps: true,

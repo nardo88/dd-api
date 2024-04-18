@@ -18,10 +18,11 @@ app.use(express.json())
 
 const routers = createRoutes()
 
-app.use('/', routers.authRouter)
+app.use('/api/v1', routers.authRouter)
+app.use('/api/v1/users', routers.userRouter)
 
 app.use((_req: Request, res: Response) => {
-  res.status(404).json({ message: 'Not found' })
+  res.status(404).json({ message: 'Rout not found' })
 })
 
 async function start() {
