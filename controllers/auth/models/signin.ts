@@ -15,7 +15,7 @@ interface IOutput {
   token?: string
 }
 
-export async function auth(options: IOptions): Promise<IOutput> {
+export async function signin(options: IOptions): Promise<IOutput> {
   try {
     const { email, password } = options
     const user = await Users.findOne({ email }, { password: 1 }).lean()

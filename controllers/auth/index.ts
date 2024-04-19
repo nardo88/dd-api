@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
-import { auth } from './models/auth'
+import { signin } from './models/signin'
 import { signup } from './models/signup'
 
 export class AuthController {
-  auth = async (req: Request, res: Response) => {
+  signin = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body
 
-      const { status, message, token } = await auth({
-        email,
+      const { status, message, token } = await signin({
+        email: email.toLowerCase(),
         password,
       })
 
@@ -30,7 +30,7 @@ export class AuthController {
       const { email, password } = req.body
 
       const { status, message } = await signup({
-        email,
+        email: email.toLowerCase(),
         password,
       })
 
