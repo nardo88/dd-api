@@ -1,5 +1,6 @@
 import 'module-alias/register'
 import express, { Request, Response } from 'express'
+import passport from 'passport'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import createRoutes from './routes'
@@ -13,9 +14,15 @@ const mongoUrl =
 
 const app = express()
 
-app.use(cors())
+app.use(
+  cors({
+    origin: [PORT.toString()],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true,
+  })
+)
 app.use(express.json())
-
+app.use(passport.initialize())
 const routers = createRoutes()
 
 app.use('/api/v1', routers.authRouter)
