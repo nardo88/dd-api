@@ -14,13 +14,14 @@ const PORT = 5000
 
 const app = express()
 
-app.use(
-  cors({
-    origin: [PORT.toString()],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    credentials: true,
-  })
-)
+// app.use(
+//   cors({
+//     origin: [PORT.toString()],
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+//     credentials: true,
+//   })
+// )
+app.use(cors())
 app.use(express.json())
 // app.use(passport.initialize())
 // const routers = createRoutes()
