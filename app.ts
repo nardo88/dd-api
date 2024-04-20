@@ -37,7 +37,7 @@ app.use((_req: Request, res: Response) => {
 
 async function start() {
   try {
-    await mongoose.connect(mongoUrl)
+    // await mongoose.connect(mongoUrl)
 
     app.listen(PORT, () => {
       console.log(`Server started on port ${PORT}`)
