@@ -25,6 +25,9 @@ app.use(express.json())
 app.use(passport.initialize())
 const routers = createRoutes()
 
+app.get('/', (_req: Request, res: Response) => {
+  res.json({ message: 'welcome to my app' })
+})
 app.use('/api/v1', routers.authRouter)
 app.use('/api/v1/users', routers.userRouter)
 
