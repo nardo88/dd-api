@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signin = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const errorCodes_1 = require("constants/errorCodes");
-const createJWT_1 = require("helpers/createJWT");
-const Users_1 = __importDefault(require("models/Users/Users"));
+const Users_1 = __importDefault(require("../../../models/Users/Users"));
+const errorCodes_1 = require("../../../constants/errorCodes");
+const createJWT_1 = require("../../../helpers/createJWT");
 function signin(options) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
-import { ErrorCodes } from 'constants/errorCodes'
-import { createJWT } from 'helpers/createJWT'
-import Users from 'models/Users/Users'
+import Users from '../../../models/Users/Users'
+import { ErrorCodes } from '../../../constants/errorCodes'
+import { createJWT } from '../../../helpers/createJWT'
 
 interface IOptions {
   email: string

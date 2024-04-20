@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import { UserData } from 'customTypes/user'
-import { ErrorCodes } from 'constants/errorCodes'
+import { UserData } from '../customTypes/user'
+import { ErrorCodes } from '../constants/errorCodes'
 dotenv.config()
 
 const JWT_SECRET = process.env.JWT_SECRET as string

@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs'
-import { ErrorCodes, ErrorMessages } from 'constants/errorCodes'
-import { createId } from 'helpers/createId'
-import { validateEmail } from 'helpers/validateEmail'
-import Users from 'models/Users/Users'
+import Users from '../../../models/Users/Users'
+import { ErrorCodes, ErrorMessages } from '../../../constants/errorCodes'
+import { validateEmail } from '../../../helpers/validateEmail'
+import { createId } from '../../../helpers/createId'
 
 interface IOptions {
   email: string

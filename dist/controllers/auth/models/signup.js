@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signup = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const errorCodes_1 = require("constants/errorCodes");
-const createId_1 = require("helpers/createId");
-const validateEmail_1 = require("helpers/validateEmail");
-const Users_1 = __importDefault(require("models/Users/Users"));
+const Users_1 = __importDefault(require("../../../models/Users/Users"));
+const errorCodes_1 = require("../../../constants/errorCodes");
+const validateEmail_1 = require("../../../helpers/validateEmail");
+const createId_1 = require("../../../helpers/createId");
 function signup(options) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

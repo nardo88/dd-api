@@ -1,7 +1,7 @@
-import { ErrorCodes, ErrorMessages } from 'constants/errorCodes'
-import { UserData } from 'customTypes/user'
 import { Request, Response } from 'express'
-import Users from 'models/Users/Users'
+import { UserData } from '../../customTypes/user'
+import Users from '../../models/Users/Users'
+import { ErrorCodes, ErrorMessages } from '../../constants/errorCodes'
 
 export class UsersController {
   getUser = async (req: Request, res: Response) => {

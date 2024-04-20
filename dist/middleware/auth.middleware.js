@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authStrict = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const errorCodes_1 = require("constants/errorCodes");
+const errorCodes_1 = require("../constants/errorCodes");
 dotenv_1.default.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 function authStrict(req, res, next) {
