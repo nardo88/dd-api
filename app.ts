@@ -28,8 +28,8 @@ const routers = createRoutes()
 app.get('/', (_req: Request, res: Response) => {
   res.json({ message: 'welcome to my app' })
 })
-app.use('/api/v1', routers.authRouter)
-app.use('/api/v1/users', routers.userRouter)
+// app.use('/api/v1', routers.authRouter)
+// app.use('/api/v1/users', routers.userRouter)
 
 app.use((_req: Request, res: Response) => {
   res.status(404).json({ message: 'Rout not found' })
