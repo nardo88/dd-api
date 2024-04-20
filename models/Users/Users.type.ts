@@ -1,3 +1,13 @@
+import { Request } from 'express'
+
 export interface UsersType {
-    _id: string
+  _id: string
+  email: string
+  profile: {
+    name: string
+    surname: string
+    middlename: string
+  }
+  password: string
+  roles: string[]
 }

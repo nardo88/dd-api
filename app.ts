@@ -1,8 +1,11 @@
+import 'module-alias/register'
 import express, { Request, Response } from 'express'
+import passport from 'passport'
 import mongoose from 'mongoose'
 import cors from 'cors'
-import dotenv from 'dotenv'
+import createRoutes from './routes'
 
+import dotenv from 'dotenv'
 dotenv.config()
 
 const PORT = 5000
@@ -11,14 +14,22 @@ const mongoUrl =
 
 const app = express()
 
-app.use(cors())
+app.use(
+  cors({
+    origin: [PORT.toString()],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true,
+  })
+)
 app.use(express.json())
+app.use(passport.initialize())
+const routers = createRoutes()
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send(`<h1>It's work</h1>`)
-})
-app.get('/test', (req: Request, res: Response) => {
-  res.send(`<h1>It's work!!!!/h1>`)
+app.use('/api/v1', routers.authRouter)
+app.use('/api/v1/users', routers.userRouter)
+
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({ message: 'Rout not found' })
 })
 
 async function start() {
