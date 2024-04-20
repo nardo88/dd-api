@@ -35,7 +35,7 @@ app.get('/', (_req: Request, res: Response) => {
 app.use((_req: Request, res: Response) => {
   res.status(404).json({ message: 'Rout not found' })
 })
-
+// yo
 async function start() {
   try {
     // await mongoose.connect(mongoUrl)
