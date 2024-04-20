@@ -1,16 +1,16 @@
 import 'module-alias/register'
 import express, { Request, Response } from 'express'
-import passport from 'passport'
-import mongoose from 'mongoose'
+// import passport from 'passport'
+// import mongoose from 'mongoose'
 import cors from 'cors'
-import createRoutes from './routes'
+// import createRoutes from './routes'
 
-import dotenv from 'dotenv'
-dotenv.config()
+// import dotenv from 'dotenv'
+// dotenv.config()
 
 const PORT = 5000
-const mongoUrl =
-  process.env.MONGODB_URL || 'mongodb://localhost:27017/conspects'
+// const mongoUrl =
+//   process.env.MONGODB_URL || 'mongodb://localhost:27017/conspects'
 
 const app = express()
 
