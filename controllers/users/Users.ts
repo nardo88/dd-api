@@ -1,11 +1,23 @@
+import { ErrorCodes, ErrorMessages } from '@constants/errorCodes'
+import Users from '@models/Users/Users'
 import { UserData } from 'customTypes/user'
 import { Request, Response } from 'express'
 
 export class UsersController {
   getUser = async (req: Request, res: Response) => {
     try {
-      // const { userId } = req.user as UserData
-      return res.sendStatus(200)
+      const { userId } = req.user as UserData
+      const current = await Users.findOne(
+        { _id: userId },
+        { password: 0 }
+      ).lean()
+
+      if (!current) {
+        return res
+          .status(ErrorCodes.NOT_FOUND)
+          .json({ message: ErrorMessages.NOT_FOUND })
+      }
+      return res.json({ ...current })
     } catch (e: any) {
       res
         .status(500)

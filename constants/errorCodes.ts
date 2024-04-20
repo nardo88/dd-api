@@ -7,4 +7,5 @@ export enum ErrorCodes {
 export enum ErrorMessages {
   ALREADY_EXISTS = 'already exists',
   INVALID_DATA = 'invalid data',
+  NOT_FOUND = 'not found',
 }
