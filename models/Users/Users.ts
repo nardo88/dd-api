@@ -23,6 +23,8 @@ const UsersSchema = new Schema(
       enum: ['user', 'admin'],
       default: ['user'],
     },
+    createdAt: Schema.Types.Number,
+    updatedAt: Schema.Types.Number,
   },
   {
     timestamps: true,
