@@ -10,16 +10,16 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "paths": {
-      "@helpers/*": ["./helpers/*"],
-      "@routes/*": ["./routes/*"],
-      "@controllers/*": ["./controllers/*"],
-      "@middleware/*": ["./middleware/*"],
-      "@models/*": ["./models/*"],
-      "@socket/*": ["./socket/*"],
-      "@constants/*": ["./constants/*"],
-      "@services/*": ["./services/*"]
-    },
+    // "paths": {
+    //   "@helpers/*": ["./helpers/*"],
+    //   "@routes/*": ["./routes/*"],
+    //   "@controllers/*": ["./controllers/*"],
+    //   "@middleware/*": ["./middleware/*"],
+    //   "@models/*": ["./models/*"],
+    //   "@socket/*": ["./socket/*"],
+    //   "@constants/*": ["./constants/*"],
+    //   "@services/*": ["./services/*"]
+    // },
     "typeRoots": ["customTypes", "node_modules/@types"]
   },
   "include": ["./**/*"],

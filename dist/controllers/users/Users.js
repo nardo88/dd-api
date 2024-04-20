@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
-const errorCodes_1 = require("@constants/errorCodes");
-const Users_1 = __importDefault(require("@models/Users/Users"));
+const errorCodes_1 = require("constants/errorCodes");
+const Users_1 = __importDefault(require("models/Users/Users"));
 class UsersController {
     constructor() {
         this.getUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
