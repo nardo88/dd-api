@@ -16,8 +16,7 @@ export class AuthController {
         return res.status(status).json({ message })
       }
 
-      res.cookie('token', token, { httpOnly: true })
-      res.sendStatus(200)
+      res.json({ token })
     } catch (e: any) {
       res
         .status(500)

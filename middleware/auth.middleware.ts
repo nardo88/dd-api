@@ -13,11 +13,7 @@ export function authStrict(req: Request, res: Response, next: NextFunction) {
       return next()
     }
 
-    const { cookie } = req.headers
-    const token = cookie
-      ?.split('; ')
-      ?.find((i) => i.includes('token'))
-      ?.split('=')?.[1]
+    const token = req.headers.authorization?.split(' ')[1]
 
     if (!token) {
       throw new Error()

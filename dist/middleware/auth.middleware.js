@@ -10,13 +10,12 @@ const errorCodes_1 = require("../constants/errorCodes");
 dotenv_1.default.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 function authStrict(req, res, next) {
-    var _a, _b, _c;
+    var _a;
     try {
         if (req.method === 'OPTIONS') {
             return next();
         }
-        const { cookie } = req.headers;
-        const token = (_c = (_b = (_a = cookie === null || cookie === void 0 ? void 0 : cookie.split('; ')) === null || _a === void 0 ? void 0 : _a.find((i) => i.includes('token'))) === null || _b === void 0 ? void 0 : _b.split('=')) === null || _c === void 0 ? void 0 : _c[1];
+        const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
         if (!token) {
             throw new Error();
         }

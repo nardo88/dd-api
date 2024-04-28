@@ -24,8 +24,7 @@ class AuthController {
                 if (message) {
                     return res.status(status).json({ message });
                 }
-                res.cookie('token', token, { httpOnly: true });
-                res.sendStatus(200);
+                res.json({ token });
             }
             catch (e) {
                 res

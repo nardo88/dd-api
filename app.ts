@@ -16,8 +16,8 @@ const app = express()
 
 app.use(
   cors({
-    origin: [PORT.toString()],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
 )

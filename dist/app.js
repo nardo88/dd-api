@@ -24,8 +24,8 @@ const PORT = 5000;
 const mongoUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/conspects';
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: [PORT.toString()],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
 app.use(express_1.default.json());
