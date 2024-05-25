@@ -35,7 +35,7 @@ const getCatalog = (options) => __awaiter(void 0, void 0, void 0, function* () {
                                 category: 1,
                                 description: 1,
                                 title: 1,
-                                updatedAt: 1,
+                                createdAt: 1,
                             },
                         },
                     ],
