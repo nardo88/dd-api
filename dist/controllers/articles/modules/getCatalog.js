@@ -24,6 +24,9 @@ const getCatalog = (options) => __awaiter(void 0, void 0, void 0, function* () {
                 },
             },
             {
+                $sort: { createdAt: -1 },
+            },
+            {
                 $facet: {
                     data: [
                         { $skip: pageCount * (page - 1) },

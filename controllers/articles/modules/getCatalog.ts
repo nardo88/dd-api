@@ -22,6 +22,9 @@ export const getCatalog = async (options: IOptions): Promise<IOutputData> => {
         },
       },
       {
+        $sort: { createdAt: -1 },
+      },
+      {
         $facet: {
           data: [
             { $skip: pageCount * (page - 1) },
