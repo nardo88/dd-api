@@ -22,7 +22,7 @@ export class ArticleController {
   getList = async (req: Request, res: Response) => {
     try {
       const { roles } = req.user as UserData
-      if (!roles.includes('adimn')) {
+      if (!roles.includes('admin')) {
         return res.status(403).json({ message: 'Access denied' })
       }
       const { page, pageCount } = pagination(req.query)

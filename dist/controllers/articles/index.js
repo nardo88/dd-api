@@ -31,7 +31,7 @@ class ArticleController {
         this.getList = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { roles } = req.user;
-                if (!roles.includes('adimn')) {
+                if (!roles.includes('admin')) {
                     return res.status(403).json({ message: 'Access denied' });
                 }
                 const { page, pageCount } = (0, pagination_1.pagination)(req.query);
