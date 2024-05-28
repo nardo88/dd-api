@@ -4,6 +4,7 @@ dotenv.config()
 
 interface IPayload {
   userId: string
+  roles: string[]
 }
 
 const secret = process.env.JWT_SECRET as string

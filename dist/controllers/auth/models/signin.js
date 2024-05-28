@@ -21,7 +21,7 @@ function signin(options) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { email, password } = options;
-            const user = yield Users_1.default.findOne({ email }, { password: 1 }).lean();
+            const user = yield Users_1.default.findOne({ email }, { password: 1, roles: 1 }).lean();
             if (!user) {
                 return {
                     status: errorCodes_1.ErrorCodes.NOT_FOUND,
@@ -35,7 +35,7 @@ function signin(options) {
                     message: 'invalid data',
                 };
             }
-            const jwt = (0, createJWT_1.createJWT)({ userId: user._id });
+            const jwt = (0, createJWT_1.createJWT)({ userId: user._id, roles: user.roles });
             return {
                 status: 200,
                 token: jwt,

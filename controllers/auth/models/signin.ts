@@ -17,7 +17,10 @@ interface IOutput {
 export async function signin(options: IOptions): Promise<IOutput> {
   try {
     const { email, password } = options
-    const user = await Users.findOne({ email }, { password: 1 }).lean()
+    const user = await Users.findOne(
+      { email },
+      { password: 1, roles: 1 }
+    ).lean()
 
     if (!user) {
       return {
@@ -35,7 +38,7 @@ export async function signin(options: IOptions): Promise<IOutput> {
       }
     }
 
-    const jwt = createJWT({ userId: user._id })
+    const jwt = createJWT({ userId: user._id, roles: user.roles })
 
     return {
       status: 200,
