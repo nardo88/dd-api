@@ -4,6 +4,7 @@ import { getCatalog } from './modules/getCatalog'
 import { UserData } from '../../customTypes/user'
 import { getLestForAdmin } from './modules/getLestForAdmin'
 import { escapingCharacters } from '../../helpers/escapingCharacters'
+import Articles from '../../models/Articles/Articles'
 
 export class ArticleController {
   getCatalog = async (req: Request, res: Response) => {
@@ -35,6 +36,23 @@ export class ArticleController {
       })
 
       return res.json({ list, total })
+    } catch (e: any) {
+      res
+        .status(500)
+        .json({ details: e.message, message: 'Что то пошло не так!' })
+    }
+  }
+  getForEdit = async (req: Request, res: Response) => {
+    try {
+      const { roles } = req.user as UserData
+      if (!roles.includes('admin')) {
+        return res.status(403).json({ message: 'Access denied' })
+      }
+      const { id } = req.params
+
+      const article = await Articles.findOne({ _id: id }).lean()
+
+      return res.json({ ...article })
     } catch (e: any) {
       res
         .status(500)

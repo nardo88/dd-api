@@ -9,6 +9,7 @@ export const createArticleRouter = (): Router => {
 
   router.get('/', authStrict, controller.getList)
   router.get('/catalog', controller.getCatalog)
+  router.get('/get-for-edit/:id', authStrict, controller.getForEdit)
 
   return router
 }

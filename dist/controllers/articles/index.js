@@ -8,12 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleController = void 0;
 const pagination_1 = require("../../helpers/pagination");
 const getCatalog_1 = require("./modules/getCatalog");
 const getLestForAdmin_1 = require("./modules/getLestForAdmin");
 const escapingCharacters_1 = require("../../helpers/escapingCharacters");
+const Articles_1 = __importDefault(require("../../models/Articles/Articles"));
 class ArticleController {
     constructor() {
         this.getCatalog = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -43,6 +47,22 @@ class ArticleController {
                     title: (0, escapingCharacters_1.escapingCharacters)(title.toLocaleString()),
                 });
                 return res.json({ list, total });
+            }
+            catch (e) {
+                res
+                    .status(500)
+                    .json({ details: e.message, message: 'Что то пошло не так!' });
+            }
+        });
+        this.getForEdit = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { roles } = req.user;
+                if (!roles.includes('admin')) {
+                    return res.status(403).json({ message: 'Access denied' });
+                }
+                const { id } = req.params;
+                const article = yield Articles_1.default.findOne({ _id: id }).lean();
+                return res.json(Object.assign({}, article));
             }
             catch (e) {
                 res

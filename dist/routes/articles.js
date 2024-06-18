@@ -9,6 +9,7 @@ const createArticleRouter = () => {
     const controller = new articles_1.ArticleController();
     router.get('/', auth_middleware_1.authStrict, controller.getList);
     router.get('/catalog', controller.getCatalog);
+    router.get('/get-for-edit/:id', auth_middleware_1.authStrict, controller.getForEdit);
     return router;
 };
 exports.createArticleRouter = createArticleRouter;
