@@ -1,6 +1,8 @@
 import 'module-alias/register'
+import { createServer } from 'http'
 import express, { Request, Response } from 'express'
 import passport from 'passport'
+import { Server, Socket } from 'socket.io'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import createRoutes from './routes'
@@ -24,6 +26,23 @@ app.use(
 
 app.use(express.json())
 app.use(passport.initialize())
+
+const server = createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+  },
+  serveClient: false,
+})
+
+// io.use(socketAuthStrict)
+
+io.on('connection', async (socket: Socket) => {
+  console.log('socket: ', socket.id)
+  // await onConnection(io, socket as AppSocket)
+})
+
 const routers = createRoutes()
 
 app.get('/', (_req: Request, res: Response) => {
