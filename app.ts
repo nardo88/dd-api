@@ -8,6 +8,8 @@ import cors from 'cors'
 import createRoutes from './routes'
 
 import dotenv from 'dotenv'
+import { socketAuthStrict } from './middleware/socket.middleware'
+import { AppSocket, onConnection } from './socket/onConnection'
 dotenv.config()
 
 const PORT = 5000
@@ -36,11 +38,11 @@ const io = new Server(server, {
   serveClient: false,
 })
 
-// io.use(socketAuthStrict)
+io.use(socketAuthStrict)
 
 io.on('connection', async (socket: Socket) => {
   console.log('socket: ', socket.id)
-  // await onConnection(io, socket as AppSocket)
+  await onConnection(io, socket as AppSocket)
 })
 
 const routers = createRoutes()

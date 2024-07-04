@@ -21,6 +21,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const socket_middleware_1 = require("./middleware/socket.middleware");
+const onConnection_1 = require("./socket/onConnection");
 dotenv_1.default.config();
 const PORT = 5000;
 const mongoUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/conspects';
@@ -39,10 +41,10 @@ const io = new socket_io_1.Server(server, {
     },
     serveClient: false,
 });
-// io.use(socketAuthStrict)
+io.use(socket_middleware_1.socketAuthStrict);
 io.on('connection', (socket) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('socket: ', socket.id);
-    // await onConnection(io, socket as AppSocket)
+    yield (0, onConnection_1.onConnection)(io, socket);
 }));
 const routers = (0, routes_1.default)();
 app.get('/', (_req, res) => {
