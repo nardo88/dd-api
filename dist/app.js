@@ -58,7 +58,7 @@ function start() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose_1.default.connect(mongoUrl);
-            app.listen(PORT, () => {
+            server.listen(PORT, () => {
                 console.log(`Server started on port ${PORT}`);
             });
         }
