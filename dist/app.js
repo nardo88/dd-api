@@ -13,16 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("module-alias/register");
-const http_1 = require("http");
 const express_1 = __importDefault(require("express"));
 const passport_1 = __importDefault(require("passport"));
-const socket_io_1 = require("socket.io");
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const socket_middleware_1 = require("./middleware/socket.middleware");
-const onConnection_1 = require("./socket/onConnection");
 dotenv_1.default.config();
 const PORT = 5000;
 const mongoUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/conspects';
@@ -34,18 +30,6 @@ app.use((0, cors_1.default)({
 }));
 app.use(express_1.default.json());
 app.use(passport_1.default.initialize());
-const server = (0, http_1.createServer)(app);
-const io = new socket_io_1.Server(server, {
-    cors: {
-        origin: '*',
-    },
-    serveClient: false,
-});
-io.use(socket_middleware_1.socketAuthStrict);
-io.on('connection', (socket) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('socket: ', socket.id);
-    yield (0, onConnection_1.onConnection)(io, socket);
-}));
 const routers = (0, routes_1.default)();
 app.get('/', (_req, res) => {
     res.json({ message: 'welcome to my app' });
@@ -60,7 +44,7 @@ function start() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose_1.default.connect(mongoUrl);
-            server.listen(PORT, () => {
+            app.listen(PORT, () => {
                 console.log(`Server started on port ${PORT}`);
             });
         }
