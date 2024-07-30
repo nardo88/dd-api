@@ -70,6 +70,18 @@ class ArticleController {
                     .json({ details: e.message, message: 'Что то пошло не так!' });
             }
         });
+        this.getForView = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const article = yield Articles_1.default.findOne({ _id: id }, { body: 1 }).lean();
+                return res.json((article === null || article === void 0 ? void 0 : article.body) || []);
+            }
+            catch (e) {
+                res
+                    .status(500)
+                    .json({ details: e.message, message: 'Что то пошло не так!' });
+            }
+        });
     }
 }
 exports.ArticleController = ArticleController;

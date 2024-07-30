@@ -59,4 +59,18 @@ export class ArticleController {
         .json({ details: e.message, message: 'Что то пошло не так!' })
     }
   }
+
+  getForView = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params
+
+      const article = await Articles.findOne({ _id: id }, { body: 1 }).lean()
+
+      return res.json(article?.body || [])
+    } catch (e: any) {
+      res
+        .status(500)
+        .json({ details: e.message, message: 'Что то пошло не так!' })
+    }
+  }
 }

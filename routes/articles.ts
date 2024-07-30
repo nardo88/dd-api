@@ -8,6 +8,7 @@ export const createArticleRouter = (): Router => {
   const controller = new ArticleController()
 
   router.get('/', authStrict, controller.getList)
+  router.get('/get-one/:id', authStrict, controller.getForView)
   router.get('/catalog', controller.getCatalog)
   router.get('/get-for-edit/:id', authStrict, controller.getForEdit)
 

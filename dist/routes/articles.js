@@ -8,6 +8,7 @@ const createArticleRouter = () => {
     const router = (0, express_1.Router)();
     const controller = new articles_1.ArticleController();
     router.get('/', auth_middleware_1.authStrict, controller.getList);
+    router.get('/get-one/:id', auth_middleware_1.authStrict, controller.getForView);
     router.get('/catalog', controller.getCatalog);
     router.get('/get-for-edit/:id', auth_middleware_1.authStrict, controller.getForEdit);
     return router;
