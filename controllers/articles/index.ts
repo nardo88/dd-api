@@ -5,6 +5,7 @@ import { UserData } from '../../customTypes/user'
 import { getLestForAdmin } from './modules/getLestForAdmin'
 import { escapingCharacters } from '../../helpers/escapingCharacters'
 import Articles from '../../models/Articles/Articles'
+import { createId } from '../../helpers/createId'
 
 export class ArticleController {
   getCatalog = async (req: Request, res: Response) => {
@@ -67,6 +68,29 @@ export class ArticleController {
       const article = await Articles.findOne({ _id: id }, { body: 1 }).lean()
 
       return res.json(article?.body || [])
+    } catch (e: any) {
+      res
+        .status(500)
+        .json({ details: e.message, message: 'Что то пошло не так!' })
+    }
+  }
+
+  create = async (req: Request, res: Response) => {
+    try {
+      const { category, title, body, description, image } = req.body
+      const { userId } = req.user as UserData
+      const newArticle = new Articles({
+        _id: createId(),
+        category,
+        title,
+        userId,
+        body,
+        description,
+        image,
+      })
+
+      await newArticle.save()
+      return res.status(201).json({ id: newArticle._id })
     } catch (e: any) {
       res
         .status(500)

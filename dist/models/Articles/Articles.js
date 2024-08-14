@@ -58,8 +58,6 @@ const ArticlesSchema = new mongoose_1.Schema({
     description: { type: mongoose_1.Schema.Types.String },
     image: { type: mongoose_1.Schema.Types.String },
     body: [ContentSchema],
-    createdAt: mongoose_1.Schema.Types.Number,
-    updatedAt: mongoose_1.Schema.Types.Number,
 }, {
     timestamps: true,
     collection: 'articles',

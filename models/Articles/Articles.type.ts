@@ -12,6 +12,6 @@ export interface ArticleType {
   description: string
   image: string
   body: IBody[]
-  createdAt: number
-  updatedAt: number
+  createdAt: string
+  updatedAt: string
 }

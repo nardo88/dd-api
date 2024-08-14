@@ -40,8 +40,6 @@ const ArticlesSchema = new Schema(
     description: { type: Schema.Types.String },
     image: { type: Schema.Types.String },
     body: [ContentSchema],
-    createdAt: Schema.Types.Number,
-    updatedAt: Schema.Types.Number,
   },
   {
     timestamps: true,

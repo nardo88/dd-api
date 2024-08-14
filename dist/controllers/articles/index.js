@@ -18,6 +18,7 @@ const getCatalog_1 = require("./modules/getCatalog");
 const getLestForAdmin_1 = require("./modules/getLestForAdmin");
 const escapingCharacters_1 = require("../../helpers/escapingCharacters");
 const Articles_1 = __importDefault(require("../../models/Articles/Articles"));
+const createId_1 = require("../../helpers/createId");
 class ArticleController {
     constructor() {
         this.getCatalog = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -75,6 +76,28 @@ class ArticleController {
                 const { id } = req.params;
                 const article = yield Articles_1.default.findOne({ _id: id }, { body: 1 }).lean();
                 return res.json((article === null || article === void 0 ? void 0 : article.body) || []);
+            }
+            catch (e) {
+                res
+                    .status(500)
+                    .json({ details: e.message, message: 'Что то пошло не так!' });
+            }
+        });
+        this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { category, title, body, description, image } = req.body;
+                const { userId } = req.user;
+                const newArticle = new Articles_1.default({
+                    _id: (0, createId_1.createId)(),
+                    category,
+                    title,
+                    userId,
+                    body,
+                    description,
+                    image,
+                });
+                yield newArticle.save();
+                return res.status(201).json({ id: newArticle._id });
             }
             catch (e) {
                 res
