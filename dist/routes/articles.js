@@ -12,6 +12,7 @@ const createArticleRouter = () => {
     router.get('/catalog', controller.getCatalog);
     router.get('/get-for-edit/:id', auth_middleware_1.authStrict, controller.getForEdit);
     router.post('/create', auth_middleware_1.authStrict, controller.create);
+    router.put('/update/:id', auth_middleware_1.authStrict, controller.update);
     return router;
 };
 exports.createArticleRouter = createArticleRouter;

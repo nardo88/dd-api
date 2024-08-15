@@ -13,6 +13,7 @@ export const createArticleRouter = (): Router => {
   router.get('/get-for-edit/:id', authStrict, controller.getForEdit)
 
   router.post('/create', authStrict, controller.create)
+  router.put('/update/:id', authStrict, controller.update)
 
   return router
 }

@@ -19,6 +19,7 @@ const getLestForAdmin_1 = require("./modules/getLestForAdmin");
 const escapingCharacters_1 = require("../../helpers/escapingCharacters");
 const Articles_1 = __importDefault(require("../../models/Articles/Articles"));
 const createId_1 = require("../../helpers/createId");
+const errorCodes_1 = require("../../constants/errorCodes");
 class ArticleController {
     constructor() {
         this.getCatalog = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -86,7 +87,12 @@ class ArticleController {
         this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { category, title, body, description, image } = req.body;
-                const { userId } = req.user;
+                const { userId, roles } = req.user;
+                if (!roles.includes('admin')) {
+                    return res
+                        .status(errorCodes_1.ErrorCodes.FORBIDDEN)
+                        .json({ message: errorCodes_1.ErrorMessages.FORBIDDEN });
+                }
                 const newArticle = new Articles_1.default({
                     _id: (0, createId_1.createId)(),
                     category,
@@ -98,6 +104,32 @@ class ArticleController {
                 });
                 yield newArticle.save();
                 return res.status(201).json({ id: newArticle._id });
+            }
+            catch (e) {
+                res
+                    .status(500)
+                    .json({ details: e.message, message: 'Что то пошло не так!' });
+            }
+        });
+        this.update = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { category, title, body, description, image } = req.body;
+                const { id } = req.params;
+                const { userId, roles } = req.user;
+                if (!roles.includes('admin')) {
+                    return res
+                        .status(errorCodes_1.ErrorCodes.FORBIDDEN)
+                        .json({ message: errorCodes_1.ErrorMessages.FORBIDDEN });
+                }
+                yield Articles_1.default.findOneAndUpdate({ _id: id }, {
+                    category,
+                    title,
+                    userId,
+                    body,
+                    description,
+                    image,
+                });
+                return res.sendStatus(200);
             }
             catch (e) {
                 res

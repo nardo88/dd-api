@@ -6,6 +6,7 @@ import { getLestForAdmin } from './modules/getLestForAdmin'
 import { escapingCharacters } from '../../helpers/escapingCharacters'
 import Articles from '../../models/Articles/Articles'
 import { createId } from '../../helpers/createId'
+import { ErrorCodes, ErrorMessages } from '../../constants/errorCodes'
 
 export class ArticleController {
   getCatalog = async (req: Request, res: Response) => {
@@ -78,7 +79,14 @@ export class ArticleController {
   create = async (req: Request, res: Response) => {
     try {
       const { category, title, body, description, image } = req.body
-      const { userId } = req.user as UserData
+      const { userId, roles } = req.user as UserData
+
+      if (!roles.includes('admin')) {
+        return res
+          .status(ErrorCodes.FORBIDDEN)
+          .json({ message: ErrorMessages.FORBIDDEN })
+      }
+
       const newArticle = new Articles({
         _id: createId(),
         category,
@@ -91,6 +99,39 @@ export class ArticleController {
 
       await newArticle.save()
       return res.status(201).json({ id: newArticle._id })
+    } catch (e: any) {
+      res
+        .status(500)
+        .json({ details: e.message, message: 'Что то пошло не так!' })
+    }
+  }
+
+  update = async (req: Request, res: Response) => {
+    try {
+      const { category, title, body, description, image } = req.body
+      const { id } = req.params
+
+      const { userId, roles } = req.user as UserData
+
+      if (!roles.includes('admin')) {
+        return res
+          .status(ErrorCodes.FORBIDDEN)
+          .json({ message: ErrorMessages.FORBIDDEN })
+      }
+
+      await Articles.findOneAndUpdate(
+        { _id: id },
+        {
+          category,
+          title,
+          userId,
+          body,
+          description,
+          image,
+        }
+      )
+
+      return res.sendStatus(200)
     } catch (e: any) {
       res
         .status(500)
