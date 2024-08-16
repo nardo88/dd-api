@@ -137,6 +137,42 @@ class ArticleController {
                     .json({ details: e.message, message: 'Что то пошло не так!' });
             }
         });
+        this.preview = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const articles = yield Articles_1.default.aggregate([
+                    {
+                        $project: {
+                            id: '$_id',
+                            _id: 0,
+                            title: 1,
+                            category: 1,
+                        },
+                    },
+                    {
+                        $group: {
+                            _id: '$category',
+                            titles: {
+                                $push: {
+                                    title: '$title',
+                                    id: '$id',
+                                },
+                            },
+                        },
+                    },
+                    {
+                        $sort: {
+                            _id: 1,
+                        },
+                    },
+                ]);
+                res.json(articles);
+            }
+            catch (e) {
+                res
+                    .status(500)
+                    .json({ details: e.message, message: 'Что то пошло не так!' });
+            }
+        });
     }
 }
 exports.ArticleController = ArticleController;

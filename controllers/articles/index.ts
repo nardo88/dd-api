@@ -138,4 +138,41 @@ export class ArticleController {
         .json({ details: e.message, message: 'Что то пошло не так!' })
     }
   }
+
+  preview = async (req: Request, res: Response) => {
+    try {
+      const articles = await Articles.aggregate([
+        {
+          $project: {
+            id: '$_id',
+            _id: 0,
+            title: 1,
+            category: 1,
+          },
+        },
+        {
+          $group: {
+            _id: '$category',
+            titles: {
+              $push: {
+                title: '$title',
+                id: '$id',
+              },
+            },
+          },
+        },
+        {
+          $sort: {
+            _id: 1,
+          },
+        },
+      ])
+
+      res.json(articles)
+    } catch (e: any) {
+      res
+        .status(500)
+        .json({ details: e.message, message: 'Что то пошло не так!' })
+    }
+  }
 }

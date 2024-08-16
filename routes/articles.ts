@@ -11,6 +11,7 @@ export const createArticleRouter = (): Router => {
   router.get('/get-one/:id', authStrict, controller.getForView)
   router.get('/catalog', controller.getCatalog)
   router.get('/get-for-edit/:id', authStrict, controller.getForEdit)
+  router.get('/preview', authStrict, controller.preview)
 
   router.post('/create', authStrict, controller.create)
   router.put('/update/:id', authStrict, controller.update)
