@@ -25,7 +25,12 @@ class ArticleController {
         this.getCatalog = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { page, pageCount } = (0, pagination_1.pagination)(req.query);
-                const { data, total } = yield (0, getCatalog_1.getCatalog)({ page, pageCount });
+                const { filter } = req.query;
+                const { data, total } = yield (0, getCatalog_1.getCatalog)({
+                    page,
+                    pageCount,
+                    filter: (0, escapingCharacters_1.escapingCharacters)(filter === null || filter === void 0 ? void 0 : filter.toLocaleString()),
+                });
                 res.json({ data, total });
             }
             catch (e) {

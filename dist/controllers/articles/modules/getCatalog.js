@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCatalog = void 0;
+const translate_1 = require("../../../helpers/translate");
 const Articles_1 = __importDefault(require("../../../models/Articles/Articles"));
 const getCatalog = (options) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -20,7 +21,10 @@ const getCatalog = (options) => __awaiter(void 0, void 0, void 0, function* () {
         const data = yield Articles_1.default.aggregate([
             {
                 $match: {
-                    title: { $regex: filter, $options: 'i' },
+                    $or: [
+                        { title: { $regex: filter, $options: 'i' } },
+                        { title: { $regex: (0, translate_1.translate)(filter), $options: 'i' } },
+                    ],
                 },
             },
             {

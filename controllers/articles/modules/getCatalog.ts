@@ -1,3 +1,4 @@
+import { translate } from '../../../helpers/translate'
 import Articles from '../../../models/Articles/Articles'
 
 interface IOptions {
@@ -18,7 +19,10 @@ export const getCatalog = async (options: IOptions): Promise<IOutputData> => {
     const data = await Articles.aggregate([
       {
         $match: {
-          title: { $regex: filter, $options: 'i' },
+          $or: [
+            { title: { $regex: filter, $options: 'i' } },
+            { title: { $regex: translate(filter), $options: 'i' } },
+          ],
         },
       },
       {

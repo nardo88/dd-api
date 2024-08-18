@@ -12,8 +12,13 @@ export class ArticleController {
   getCatalog = async (req: Request, res: Response) => {
     try {
       const { page, pageCount } = pagination(req.query)
+      const { filter } = req.query
 
-      const { data, total } = await getCatalog({ page, pageCount })
+      const { data, total } = await getCatalog({
+        page,
+        pageCount,
+        filter: escapingCharacters(filter?.toLocaleString()),
+      })
 
       res.json({ data, total })
     } catch (e: any) {
