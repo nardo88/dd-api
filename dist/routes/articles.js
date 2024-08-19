@@ -14,6 +14,7 @@ const createArticleRouter = () => {
     router.get('/preview', auth_middleware_1.authStrict, controller.preview);
     router.post('/create', auth_middleware_1.authStrict, controller.create);
     router.put('/update/:id', auth_middleware_1.authStrict, controller.update);
+    router.delete('/remove/:id', auth_middleware_1.authStrict, controller.remove);
     return router;
 };
 exports.createArticleRouter = createArticleRouter;

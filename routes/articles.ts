@@ -15,6 +15,7 @@ export const createArticleRouter = (): Router => {
 
   router.post('/create', authStrict, controller.create)
   router.put('/update/:id', authStrict, controller.update)
+  router.delete('/remove/:id', authStrict, controller.remove)
 
   return router
 }

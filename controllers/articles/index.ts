@@ -111,6 +111,26 @@ export class ArticleController {
     }
   }
 
+  remove = async (req: Request, res: Response) => {
+    try {
+      const { roles } = req.user as UserData
+      const { id } = req.params
+      if (!roles.includes('admin')) {
+        return res
+          .status(ErrorCodes.FORBIDDEN)
+          .json({ message: ErrorMessages.FORBIDDEN })
+      }
+
+      await Articles.findOneAndDelete({ _id: id })
+
+      return res.sendStatus(200)
+    } catch (e: any) {
+      res
+        .status(500)
+        .json({ details: e.message, message: 'Что то пошло не так!' })
+    }
+  }
+
   update = async (req: Request, res: Response) => {
     try {
       const { category, title, body, description, image } = req.body

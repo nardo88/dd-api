@@ -116,6 +116,24 @@ class ArticleController {
                     .json({ details: e.message, message: 'Что то пошло не так!' });
             }
         });
+        this.remove = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { roles } = req.user;
+                const { id } = req.params;
+                if (!roles.includes('admin')) {
+                    return res
+                        .status(errorCodes_1.ErrorCodes.FORBIDDEN)
+                        .json({ message: errorCodes_1.ErrorMessages.FORBIDDEN });
+                }
+                yield Articles_1.default.findOneAndDelete({ _id: id });
+                return res.sendStatus(200);
+            }
+            catch (e) {
+                res
+                    .status(500)
+                    .json({ details: e.message, message: 'Что то пошло не так!' });
+            }
+        });
         this.update = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { category, title, body, description, image } = req.body;
