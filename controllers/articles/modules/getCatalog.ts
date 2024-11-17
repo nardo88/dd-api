@@ -41,6 +41,7 @@ export const getCatalog = async (options: IOptions): Promise<IOutputData> => {
                 description: 1,
                 title: 1,
                 createdAt: 1,
+                image: 1,
               },
             },
           ],

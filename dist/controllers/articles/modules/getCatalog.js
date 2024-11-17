@@ -43,6 +43,7 @@ const getCatalog = (options) => __awaiter(void 0, void 0, void 0, function* () {
                                 description: 1,
                                 title: 1,
                                 createdAt: 1,
+                                image: 1,
                             },
                         },
                     ],
