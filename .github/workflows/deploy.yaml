@@ -1,0 +1,39 @@
+on:
+	push:
+		branches:
+			- 'main'
+			
+jobs:
+	build:
+		runs-on: ubuntu-latest
+		
+		steps:
+			- name: Checkout repo
+				uses: actions/checkout@v4
+
+			- name: Build image
+				run: docker build -t nardo2003/conspect-api .
+			- name: Login to Docker hub
+				uses: docker/login-action@v3
+				with:
+					username: ${{ secrets.DOCKERHUB_USERNAME }}
+					password: ${{ secrets.DOCKERHUB_PASSWORD }}
+					
+			- name: Push image to Docker hub
+				run: docker image push nardo2003/conspect-api
+				
+			- name: Deploy
+				uses: appleboy/ssh-action@master
+				with:
+					host: ${{ secrets.HOST }}
+					username: ${{ secrets.USER_NAME }}
+					key: ${{ secrets.KEY }}
+					post: 22
+					script: |
+						rm -rf hires
+						git clone ...
+						cd ./hires
+						docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+						docker-compose -f docker-compose-prop.yaml down
+						docker image rm hhh/hires:latest
+						docker-compose -f docker-compose-prop.yaml up -d --build
