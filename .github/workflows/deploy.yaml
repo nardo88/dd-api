@@ -1,3 +1,5 @@
+name: Deploy API
+
 on:
 	push:
 		branches:
