@@ -17,7 +17,7 @@ jobs:
         run: docker build -t nardo2003/conspect-api .
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3-api.vercel.app
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -25,6 +25,11 @@ jobs:
       - name: Push image to Docker Hub
         run: docker image push nardo2003/conspect-api
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'workflow_dispatch'
+    steps:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
