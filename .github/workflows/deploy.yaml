@@ -38,5 +38,5 @@ jobs:
             cd ./dd-api
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             docker-compose -f docker-compose-prop.yaml down
-            docker image rm nardo2003/conspect-api
+            docker image rm nardo2003/conspect-api || true
             docker-compose up -d --build
