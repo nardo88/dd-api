@@ -60,10 +60,5 @@
     "@constants": "./constants",
     "@services": "./services",
     "@middleware": "./middleware"
-  },
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ]
+  }
 }
