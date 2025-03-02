@@ -6,8 +6,6 @@
   "scripts": {
     "start": "node ./dist/app.js",
     "build": "rimraf dist && tsc",
-    "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist",
     "dev": "ts-node-dev --respawn app.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
@@ -44,6 +42,7 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "bcryptjs": "2.4.3",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^9.0.2",

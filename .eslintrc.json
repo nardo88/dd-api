@@ -184,8 +184,7 @@
         ["@middleware", "./middleware"],
         ["@models", "./models"],
         ["@socket", "./socket"],
-        ["@constants", "./constants"],
-        ["@servises", "./servises"]
+        ["@constants", "./constants"]
       ]
     }
   }

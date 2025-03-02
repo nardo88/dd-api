@@ -8,10 +8,11 @@ export interface ArticleType {
   _id: string
   title: string
   userId: string
+  order?: number
   category: string
   description: string
   image: string
   body: IBody[]
-  createdAt: string
-  updatedAt: string
+  createdAt: number
+  updatedAt: number
 }

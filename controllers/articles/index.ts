@@ -83,7 +83,7 @@ export class ArticleController {
 
   create = async (req: Request, res: Response) => {
     try {
-      const { category, title, body, description, image } = req.body
+      const { category, title, body, description, image, order } = req.body
       const { userId, roles } = req.user as UserData
 
       if (!roles.includes('admin')) {
@@ -101,6 +101,10 @@ export class ArticleController {
         description,
         image,
       })
+
+      if (order) {
+        newArticle.order = order
+      }
 
       await newArticle.save()
       return res.status(201).json({ id: newArticle._id })
@@ -133,7 +137,7 @@ export class ArticleController {
 
   update = async (req: Request, res: Response) => {
     try {
-      const { category, title, body, description, image } = req.body
+      const { category, title, body, description, image, order } = req.body
       const { id } = req.params
 
       const { userId, roles } = req.user as UserData
@@ -144,17 +148,23 @@ export class ArticleController {
           .json({ message: ErrorMessages.FORBIDDEN })
       }
 
-      await Articles.findOneAndUpdate(
-        { _id: id },
-        {
-          category,
-          title,
-          userId,
-          body,
-          description,
-          image,
-        }
-      )
+      const article = await Articles.findOne({ _id: id, userId })
+
+      if (!article) return res.sendStatus(404)
+
+      article.category = category
+      article.title = title
+      article.body = body
+      article.description = description
+      article.image = image
+      article.image = image
+
+      console.log('order: ', order)
+      if (order) {
+        article.order = order
+      }
+
+      await article.save()
 
       return res.sendStatus(200)
     } catch (e: any) {
@@ -164,7 +174,7 @@ export class ArticleController {
     }
   }
 
-  preview = async (req: Request, res: Response) => {
+  preview = async (_req: Request, res: Response) => {
     try {
       const articles = await Articles.aggregate([
         {
@@ -173,6 +183,13 @@ export class ArticleController {
             _id: 0,
             title: 1,
             category: 1,
+            order: 1,
+          },
+        },
+        {
+          $sort: {
+            category: 1,
+            order: 1,
           },
         },
         {
