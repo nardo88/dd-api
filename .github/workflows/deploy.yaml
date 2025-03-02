@@ -38,7 +38,7 @@ jobs:
           port: 22
           script: |
             cd ./dd-api
-            docker-compose -f docker-compose-prop.yaml down
+            docker-compose down
             docker image rm nardo2003/conspect-api || true
             cd ../
             rm -rf dd-api
