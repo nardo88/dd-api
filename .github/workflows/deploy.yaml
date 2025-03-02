@@ -45,4 +45,5 @@ jobs:
             git clone git@github.com:nardo88/dd-api.git
             cd ./dd-api
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-            docker-compose up -d --build
+            docker pull nardo2003/conspect-api
+            docker-compose up -d --build --force-recreate
