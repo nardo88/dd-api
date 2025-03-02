@@ -199,6 +199,7 @@ export class ArticleController {
               $push: {
                 title: '$title',
                 id: '$id',
+                order: '$order',
               },
             },
           },

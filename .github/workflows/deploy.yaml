@@ -37,10 +37,12 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 22
           script: |
+            cd ./dd-api
+            docker-compose -f docker-compose-prop.yaml down
+            docker image rm nardo2003/conspect-api || true
+            cd ../
             rm -rf dd-api
             git clone git@github.com:nardo88/dd-api.git
             cd ./dd-api
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-            docker-compose -f docker-compose-prop.yaml down
-            docker image rm nardo2003/conspect-api || true
             docker-compose up -d --build
