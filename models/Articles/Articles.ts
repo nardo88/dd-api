@@ -1,6 +1,15 @@
 import mongoose, { Schema } from 'mongoose'
 import { ArticleType } from './Articles.type'
 
+const ContentSetting = new Schema(
+  {
+    language: Schema.Types.String,
+    needTerminal: Schema.Types.Boolean,
+    canEdit: Schema.Types.Boolean,
+  },
+  { _id: false, versionKey: false }
+)
+
 const ContentSchema = new Schema(
   {
     _id: Schema.Types.String,
@@ -12,6 +21,7 @@ const ContentSchema = new Schema(
       type: Schema.Types.String,
       required: true,
     },
+    settings: ContentSetting,
   },
   {
     versionKey: false,

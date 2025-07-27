@@ -159,7 +159,6 @@ export class ArticleController {
       article.image = image
       article.image = image
 
-      console.log('order: ', order)
       if (order) {
         article.order = order
       }

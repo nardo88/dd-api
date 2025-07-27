@@ -1,7 +1,14 @@
+export interface IBodySetting {
+  language?: string
+  needTerminal?: boolean
+  canEdit?: boolean
+}
+
 export interface IBody {
   _id: string
   type: string
   value: string
+  settings?: IBodySetting
 }
 
 export interface ArticleType {
