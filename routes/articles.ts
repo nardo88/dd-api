@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import { AuthController } from '../controllers/auth'
 import { ArticleController } from '../controllers/articles'
 import { authStrict } from '../middleware/auth.middleware'
 

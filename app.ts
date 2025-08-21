@@ -35,6 +35,7 @@ app.get('/', (_req: Request, res: Response) => {
 app.use('/api/v1', routers.authRouter)
 app.use('/api/v1/users', routers.userRouter)
 app.use('/api/v1/articles', routers.catalogRouter)
+app.use('/api/v1/sandbox', routers.sandboxRouter)
 
 app.use((_req: Request, res: Response) => {
   res.status(404).json({ message: 'Rout not found' })
